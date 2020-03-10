@@ -1,0 +1,22 @@
+name: Test
+on: [push, pull_request]
+
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.repository != 'elixir-wallaby/workflow-test')
+
+    steps:
+      - name: Did I run?
+        run: echo "I ran! The event_name is ${{ github.event_name }} and the repository is ${{ github.repository }}"
+
+  control:
+    name: Control
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: I will always run
+        run: echo "I will always run! The event_name is ${{ github.event_name }} and the repository is ${{ github.repository }}"
